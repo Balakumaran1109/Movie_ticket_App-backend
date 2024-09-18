@@ -4,11 +4,10 @@ import {
   getBookingById,
   newBooking,
 } from "../controllers/booking_controller.js";
-import protect from "../middlewares/authMiddleware.js";
 
 const bookingRouter = express.Router();
 
-bookingRouter.post("/", protect, newBooking);
+bookingRouter.post("/", newBooking);
 bookingRouter.get("/:id", getBookingById);
 bookingRouter.delete("/:id", deleteBooking);
 
