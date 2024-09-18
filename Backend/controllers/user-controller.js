@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import Bookings from "../models/bookings.js";
+import jwt from "jsonwebtoken";
 
 // to get all users
 export const getAllUsers = async (req, res, next) => {
@@ -110,16 +111,34 @@ export const login = async (req, res, next) => {
   }
 
   if (!existingUser) {
-    return res.status(404).json({ message: "Unable to find user in this ID" });
+    return res
+      .status(404)
+      .json({ message: "Unable to find user in this email " });
   }
 
   const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
   if (!isPasswordCorrect) {
     return res.status(400).json({ message: "Password Incorrect" });
   }
+
+  const token = jwt.sign({ id: existingUser._id }, process.env.SECRET_KEY, {
+    expiresIn: "1d",
+  });
+
+  // Save token using HTTP only cookie
+  if (isPasswordCorrect) {
+    res.cookie("token", token, {
+      path: "/",
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 86400),
+      sameSite: "none",
+      secure: true,
+    });
+  }
+
   return res
     .status(200)
-    .json({ message: "Login successful", id: existingUser._id });
+    .json({ message: "Login successful", id: existingUser._id, token });
 };
 
 // to get the bookings of a user
