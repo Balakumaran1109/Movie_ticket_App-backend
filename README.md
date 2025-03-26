@@ -32,9 +32,10 @@ npm install
 
 3. Set up environment variables (`.env`):  
 ```
-Create a .env file in the root directory and specify the following variables:
-MONGO_URI: MongoDB connection string
-PORT: Port for the server to listen on 
+* Create a .env file in the root directory and specify the following variables:
+* MONGO_URI: MongoDB connection string
+* PORT: Port for the server to listen on
+```  
 
 4. Start the server:  
 ```sh
