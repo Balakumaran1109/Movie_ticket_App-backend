@@ -21,8 +21,8 @@ This is the backend service for the Movie Ticket Booking App, handling user auth
 
 1. Clone the repository:  
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/movie-ticket-backend.git
-cd movie-ticket-backend
+git clone https://github.com/Balakumaran1109/Movie_ticket_App-backend.git
+cd Backend
 ```  
 
 2. Install dependencies:  
